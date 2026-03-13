@@ -8,13 +8,6 @@ pipeline {
 
     stages {
 
-        stage('Clone Repository') {
-            steps {
-                echo "Cloning GitHub repository..."
-                git branch: 'main', url: 'https://github.com/YOUR_USERNAME/newmongo-login.git'
-            }
-        }
-
         stage('Install Dependencies') {
             steps {
                 echo "Installing Node dependencies..."
@@ -25,16 +18,16 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 echo "Building Docker Image..."
-                sh 'docker build -t $APP_NAME:$IMAGE_TAG .'
+                sh 'docker build -t newmongo-login:v1 .'
             }
         }
 
         stage('Run Docker Container') {
             steps {
-                echo "Running Application Container..."
+                echo "Running container..."
                 sh '''
                 docker rm -f newmongo-container || true
-                docker run -d -p 3000:3000 --name newmongo-container $APP_NAME:$IMAGE_TAG
+                docker run -d -p 3000:3000 --name newmongo-container newmongo-login:v1
                 '''
             }
         }
@@ -43,11 +36,10 @@ pipeline {
 
     post {
         success {
-            echo "CI/CD Pipeline executed successfully!"
+            echo "Pipeline executed successfully"
         }
-
         failure {
-            echo "Pipeline failed!"
+            echo "Pipeline failed"
         }
     }
 }
