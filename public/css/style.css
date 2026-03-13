@@ -1,0 +1,337 @@
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
+body { background: #f4f6f9; }
+
+/* -------------------- WILDLIFE LOGIN -------------------- */
+.wildlife-bg{
+  min-height:100vh;
+  background:
+    linear-gradient(135deg, rgba(5,46,22,.75), rgba(30,64,175,.75)),
+    url("https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1600&q=60");
+  background-size: cover;
+  background-position: center;
+}
+
+.login-wrap{
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:20px;
+}
+
+.login-card{
+  width:420px;
+  background: rgba(255,255,255,.95);
+  border-radius:16px;
+  padding:26px;
+  box-shadow: 0 18px 45px rgba(0,0,0,.35);
+}
+
+.login-brand{ display:flex; gap:12px; align-items:center; }
+.brand-icon{ font-size:44px; }
+.brand-title{ font-size:22px; font-weight:800; color:#0f172a; }
+.brand-sub{ font-size:13px; color:#475569; margin-top:4px; }
+.login-divider{ height:1px; background:#e2e8f0; margin:16px 0; }
+
+.login-form label{ font-size:13px; color:#334155; display:block; margin-top:12px; }
+.login-form input{
+  width:100%;
+  padding:11px 12px;
+  border:1px solid #cbd5e1;
+  border-radius:10px;
+  margin-top:8px;
+  outline:none;
+}
+.login-form input:focus{ border-color:#2563eb; box-shadow:0 0 0 3px rgba(37,99,235,.15); }
+
+.btn-primary{
+  width:100%;
+  margin-top:16px;
+  padding:11px 12px;
+  border:none;
+  border-radius:10px;
+  background:#2563eb;
+  color:white;
+  font-weight:700;
+  cursor:pointer;
+}
+.btn-primary:hover{ background:#1e40af; }
+.btn-primary.small{ width:auto; padding:9px 12px; border-radius:10px; }
+
+.login-hint{ margin-top:12px; font-size:12px; color:#64748b; }
+
+/* -------------------- HEADER & LAYOUT -------------------- */
+.header{
+  height:62px;
+  background:#1f3c88;
+  color:white;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:0 18px;
+}
+.logo{ display:flex; gap:10px; align-items:center; font-size:20px; font-weight:800; }
+.logo-badge{ background:rgba(255,255,255,.2); padding:6px 10px; border-radius:12px; }
+.top-right{ display:flex; gap:12px; align-items:center; }
+.logout{ color:white; text-decoration:none; background:rgba(255,255,255,.18); padding:8px 12px; border-radius:10px; }
+.logout:hover{ background:rgba(255,255,255,.25); }
+
+.layout{ display:flex; }
+.sidebar{
+  width:230px;
+  background:#111827;
+  min-height:calc(100vh - 62px);
+  padding:12px 0;
+}
+.sidebar a{
+  display:block;
+  padding:12px 18px;
+  text-decoration:none;
+  color:#cbd5e1;
+}
+.sidebar a:hover{ background:#1f2937; color:white; }
+.sidebar a.active{ background:#1f2937; color:white; border-left:4px solid #2563eb; }
+
+.main{ flex:1; padding:22px; }
+.page-title{ font-size:26px; margin-bottom:16px; color:#0f172a; }
+.muted{ color:#64748b; font-size:13px; }
+
+/* -------------------- CARDS -------------------- */
+.cards{
+  display:grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap:18px;
+  margin-top:16px;
+}
+.card{
+  background:white;
+  padding:18px;
+  border-radius:14px;
+  box-shadow:0 8px 18px rgba(0,0,0,.08);
+  border-left:7px solid #1f3c88;
+}
+.card h3{ font-size:14px; margin-bottom:10px; color:#1f3c88; }
+.card p{ font-size:30px; font-weight:900; color:#0f172a; }
+.card.green{ border-left-color:#16a34a; }
+.card.orange{ border-left-color:#ea580c; }
+.card.red{ border-left-color:#dc2626; }
+.card.blue{ border-left-color:#2563eb; }
+
+/* -------------------- PANELS -------------------- */
+.panel{
+  background:white;
+  border-radius:14px;
+  box-shadow:0 8px 18px rgba(0,0,0,.08);
+  padding:18px;
+  margin-top:18px;
+}
+.grid-2{ display:grid; grid-template-columns: 1fr 1fr; gap:18px; }
+@media (max-width: 900px){ .grid-2{ grid-template-columns:1fr; } }
+
+.quick-actions{ display:flex; gap:12px; flex-wrap:wrap; margin-top:12px; }
+.qa{ text-decoration:none; background:#0ea5e9; color:white; padding:10px 12px; border-radius:12px; font-weight:700; }
+.qa:hover{ opacity:.9; }
+
+.btn-light{
+  text-decoration:none;
+  background:#e2e8f0;
+  color:#0f172a;
+  padding:9px 12px;
+  border-radius:10px;
+  font-weight:700;
+  display:inline-block;
+}
+.btn-light:hover{ background:#cbd5e1; }
+
+/* -------------------- CALENDAR -------------------- */
+.calendar-top{ display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap; }
+.calendar-controls{ display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
+.calendar-select{ display:flex; gap:10px; align-items:center; }
+.calendar-select select{
+  padding:9px 10px;
+  border-radius:10px;
+  border:1px solid #cbd5e1;
+}
+
+.calendar-title{ font-weight:900; color:#1f3c88; font-size:18px; margin-bottom:12px; }
+
+.calendar-grid{
+  display:grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap:10px;
+}
+.day-name{ font-weight:800; text-align:center; color:#334155; }
+.day{
+  background:#f8fafc;
+  min-height:78px;
+  border-radius:12px;
+  padding:10px;
+  border:1px solid #eef2f7;
+}
+.day.empty{ background:transparent; border:none; }
+.day-num{ font-weight:900; color:#0f172a; }
+.holiday{
+  background:#ffe4e6;
+  border:2px solid #dc2626;
+}
+.holiday-text{
+  margin-top:6px;
+  font-size:11px;
+  color:#b91c1c;
+  line-height:1.2;
+  word-break:break-word;
+}
+
+.form-row{ display:flex; gap:10px; flex-wrap:wrap; margin-top:12px; }
+.form-row input{
+  padding:10px;
+  border-radius:10px;
+  border:1px solid #cbd5e1;
+  flex:1;
+}
+
+.event-item{ padding:10px; background:#f1f5f9; border-radius:12px; margin-bottom:10px; }
+
+/* -------------------- SERVICES -------------------- */
+.service-grid{
+  display:grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap:12px;
+  margin-top:12px;
+}
+.service{
+  background:#f1f5f9;
+  border-radius:12px;
+  padding:14px;
+  font-weight:800;
+  color:#0f172a;
+}
+
+/* -------------------- TABLE -------------------- */
+.table{ width:100%; border-collapse:collapse; margin-top:12px; }
+.table th,.table td{ padding:10px; border-bottom:1px solid #e2e8f0; text-align:left; }
+.table th{ color:#0f172a; }
+.form-col label{ font-weight:800; font-size:13px; color:#334155; display:block; margin-top:12px; }
+.form-col input,.form-col select{
+  width:100%;
+  padding:10px;
+  border-radius:10px;
+  border:1px solid #cbd5e1;
+  margin-top:8px;
+}
+
+/* -------------------- QUIZ -------------------- */
+.quiz-form{ margin-top:12px; }
+.quiz-option{
+  display:flex; gap:10px; align-items:center;
+  padding:10px;
+  border-radius:12px;
+  background:#f1f5f9;
+  margin-bottom:10px;
+  cursor:pointer;
+}
+.quiz-option input{ transform:scale(1.2); }
+
+/* ✅ Butterflies Layer */
+#butterflies-layer {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.butterfly {
+  position: absolute;
+  opacity: 0.85;
+  filter: drop-shadow(0 10px 10px rgba(0,0,0,0.4));
+  animation-name: flyAcross;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+@keyframes flyAcross {
+  0%   { transform: translate(-30vw, 0) rotate(0deg); }
+  25%  { transform: translate(20vw, -10vh) rotate(10deg); }
+  50%  { transform: translate(60vw, 8vh) rotate(-8deg); }
+  75%  { transform: translate(100vw, -12vh) rotate(12deg); }
+  100% { transform: translate(140vw, 0) rotate(0deg); }
+}
+
+/* ✅ Make login card appear above butterflies */
+.login-wrap {
+  position: relative;
+  z-index: 2;
+}
+
+/* ✅ Forest Nature UI after login */
+.forest-body {
+  background: radial-gradient(circle at top, rgba(34, 197, 94, 0.10), transparent 60%),
+              linear-gradient(180deg, #08120a, #0b1b10);
+  color: #eaffea;
+}
+
+.forest-header {
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.forest-main {
+  padding: 20px;
+}
+
+.forest-sidebar {
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(12px);
+  border-right: 1px solid rgba(255,255,255,0.08);
+}
+
+.side-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.side-logo { font-size: 24px; }
+.side-title { font-weight: 800; color: #eaffea; }
+.side-sub { font-size: 12px; opacity: 0.75; color: #eaffea; }
+
+.side-footer {
+  padding: 16px;
+  opacity: 0.8;
+  color: #eaffea;
+}
+
+/* make page titles readable in forest mode */
+.forest-body .page-title { color: #eaffea; }
+.forest-body .muted { color: rgba(234,255,234,0.75); }
+
+/* glass effect panels in forest mode */
+.glass {
+  background: rgba(255,255,255,0.08) !important;
+  border: 1px solid rgba(255,255,255,0.12);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.35);
+  border-radius: 14px;
+}
+
+/* mini cards for timesheet summary */
+.mini-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.mini-card {
+  padding: 12px;
+  border-radius: 14px;
+  background: rgba(0,0,0,0.25);
+  border: 1px solid rgba(255,255,255,0.10);
+}
+
+.mini-title { font-size: 12px; opacity: 0.8; }
+.mini-value { font-size: 22px; font-weight: 800; margin-top: 6px; }

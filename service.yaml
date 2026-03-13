@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: nodeapp-service
+spec:
+  type: NodePort
+  selector:
+    app: newmongo-login
+  ports:
+    - port: 3000
+      targetPort: 3000
+      nodePort: 30080
