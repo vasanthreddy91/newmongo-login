@@ -3,28 +3,31 @@ pipeline {
 
     stages {
 
-        stage('Install Dependencies') {
+        stage('Check Containers') {
             steps {
-                echo 'Installing Node dependencies...'
-                bat 'npm install'
+                echo 'Checking existing containers...'
+                bat 'docker ps -a'
             }
         }
 
-        stage('Pull Docker Image') {
+        stage('Start Mongo Container') {
             steps {
-                echo 'Pulling image from Docker Hub...'
-                bat 'docker pull vasanthreddyo07/newmongo-login:latest'
+                echo 'Starting mongo container...'
+                bat 'docker start mongo || echo mongo already running or not exists'
             }
         }
 
-        stage('Run Docker Container') {
+        stage('Start HRMS Container') {
             steps {
-                echo 'Stopping old container if exists...'
-                bat 'docker stop newmongo-container || echo not running'
-                bat 'docker rm newmongo-container || echo not exists'
+                echo 'Starting hrms container...'
+                bat 'docker start hrms || echo hrms already running or not exists'
+            }
+        }
 
-                echo 'Running container...'
-                bat 'docker run -d -p 3000:3000 --name newmongo-container vasanthreddyo07/newmongo-login:latest'
+        stage('Verify Running Containers') {
+            steps {
+                echo 'Verifying running containers...'
+                bat 'docker ps'
             }
         }
 
@@ -32,10 +35,10 @@ pipeline {
 
     post {
         success {
-            echo 'Pipeline executed successfully'
+            echo '✅ Containers started successfully (hrms & mongo)'
         }
         failure {
-            echo 'Pipeline failed'
+            echo '❌ Pipeline failed'
         }
     }
 }
