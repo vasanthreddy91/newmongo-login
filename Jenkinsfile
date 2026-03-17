@@ -10,18 +10,21 @@ pipeline {
             }
         }
 
-        stage('Build Docker Image') {
+        stage('Pull Docker Image') {
             steps {
-                echo 'Building Docker Image...'
-                bat 'docker build -t newmongo-login:v1 .'
+                echo 'Pulling image from Docker Hub...'
+                bat 'docker pull vasanthreddyo07/newmongo-login:latest'
             }
         }
 
         stage('Run Docker Container') {
             steps {
-                echo 'Running Docker container...'
-                bat 'docker rm -f newmongo-container || exit 0'
-                bat 'docker run -d -p 3000:3000 --name newmongo-container newmongo-login:v1'
+                echo 'Stopping old container if exists...'
+                bat 'docker stop newmongo-container || echo not running'
+                bat 'docker rm newmongo-container || echo not exists'
+
+                echo 'Running container...'
+                bat 'docker run -d -p 3000:3000 --name newmongo-container vasanthreddyo07/newmongo-login:latest'
             }
         }
 
