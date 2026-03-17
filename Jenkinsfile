@@ -3,13 +3,6 @@ pipeline {
 
     stages {
 
-        stage('Cleanup Unwanted Containers') {
-            steps {
-                echo 'Removing unwanted containers...'
-                bat 'for /f %i in (\'docker ps -a -q --filter ancestor=vasanthreddyo07/newmongo-login:latest\') do docker rm -f %i'
-            }
-        }
-
         stage('Check Containers') {
             steps {
                 echo 'Checking existing containers...'
@@ -19,18 +12,21 @@ pipeline {
 
         stage('Start Mongo') {
             steps {
+                echo 'Starting mongo container...'
                 bat 'docker start mongo || echo mongo already running or not exists'
             }
         }
 
         stage('Start HRMS') {
             steps {
+                echo 'Starting hrms container...'
                 bat 'docker start hrms || echo hrms already running or not exists'
             }
         }
 
         stage('Final Status') {
             steps {
+                echo 'Running containers:'
                 bat 'docker ps'
             }
         }
