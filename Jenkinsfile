@@ -1,7 +1,17 @@
 pipeline {
     agent { label 'windows-agent' }
 
+    options {
+        skipDefaultCheckout(true)
+    }
+
     stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+
         stage('Setup Network') {
             steps {
                 echo 'Creating Docker network if not exists...'
