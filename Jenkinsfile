@@ -1,22 +1,46 @@
 pipeline {
     agent any
     stages {
-        stage('Check Containers') {
+        stage('Setup Network') {
             steps {
-                echo 'Checking existing containers...'
-                sh 'docker ps -a'
+                echo 'Creating Docker network if not exists...'
+                sh 'docker network create hrms-net || true'
+            }
+        }
+        stage('Pull Images') {
+            steps {
+                echo 'Pulling latest images from Docker Hub...'
+                sh 'docker pull vasanthreddy91/newmongo-login:latest'
+                sh 'docker pull mongo:latest'
             }
         }
         stage('Start Mongo') {
             steps {
                 echo 'Starting mongo container...'
-                sh 'docker start mongo || echo "mongo already running or not exists"'
+                sh '''
+                    docker stop mongo || true
+                    docker rm mongo || true
+                    docker run -d \
+                        --name mongo \
+                        --network hrms-net \
+                        -p 27017:27017 \
+                        mongo:latest
+                '''
             }
         }
         stage('Start HRMS') {
             steps {
-                echo 'Starting hrms container...'
-                sh 'docker start hrms || echo "hrms already running or not exists"'
+                echo 'Starting HRMS container...'
+                sh '''
+                    docker stop hrms || true
+                    docker rm hrms || true
+                    docker run -d \
+                        --name hrms \
+                        --network hrms-net \
+                        -p 3000:3000 \
+                        -e MONGO_URL=mongodb://mongo:27017/hrms \
+                        vasanthreddy91/newmongo-login:latest
+                '''
             }
         }
         stage('Final Status') {
@@ -28,10 +52,10 @@ pipeline {
     }
     post {
         success {
-            echo '✅ Only hrms & mongo are running'
+            echo '✅ App running at http://localhost:3000'
         }
         failure {
-            echo '❌ Pipeline failed'
+            echo '❌ Pipeline failed — check logs above'
         }
     }
 }
