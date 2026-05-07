@@ -7,11 +7,10 @@ pipeline {
                 sh 'docker network create hrms-net || true'
             }
         }
-        stage('Pull Images') {
+        stage('Build HRMS Image') {
             steps {
-                echo 'Pulling latest images from Docker Hub...'
-                sh 'docker pull vasanthreddy91/newmongo-login:latest'
-                sh 'docker pull mongo:latest'
+                echo 'Building HRMS image from source...'
+                sh 'docker build -t hrms-app:latest .'
             }
         }
         stage('Start Mongo') {
@@ -39,7 +38,7 @@ pipeline {
                         --network hrms-net \
                         -p 3000:3000 \
                         -e MONGO_URL=mongodb://mongo:27017/hrms \
-                        vasanthreddy91/newmongo-login:latest
+                        hrms-app:latest
                 '''
             }
         }
@@ -52,7 +51,7 @@ pipeline {
     }
     post {
         success {
-            echo '✅ App running at http://localhost:3000'
+            echo '✅ App running at http://YOUR_SERVER_IP:3000'
         }
         failure {
             echo '❌ Pipeline failed — check logs above'
