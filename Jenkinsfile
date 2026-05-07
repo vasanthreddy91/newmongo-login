@@ -8,7 +8,17 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                checkout scm
+                echo 'Cloning repository...'
+                bat '''
+                    if exist "C:\\jenkins-agent\\workspace\\HRMS\\.git" (
+                        echo Pulling latest changes...
+                        cd /d C:\\jenkins-agent\\workspace\\HRMS
+                        "C:\\Program Files\\Git\\cmd\\git.exe" pull
+                    ) else (
+                        echo Cloning fresh...
+                        "C:\\Program Files\\Git\\cmd\\git.exe" clone https://github.com/vasanthreddy91/newmongo-login.git C:\\jenkins-agent\\workspace\\HRMS
+                    )
+                '''
             }
         }
 
@@ -22,7 +32,7 @@ pipeline {
         stage('Build HRMS Image') {
             steps {
                 echo 'Building HRMS image from source...'
-                bat 'docker build -t hrms-app:latest .'
+                bat 'cd /d C:\\jenkins-agent\\workspace\\HRMS && docker build -t hrms-app:latest .'
             }
         }
 
