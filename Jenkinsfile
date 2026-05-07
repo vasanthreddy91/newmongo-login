@@ -51,10 +51,10 @@ pipeline {
     }
     post {
         success {
-            echo '✅ App running at http://YOUR_SERVER_IP:3000'
+            echo ' App running at http://192.168.60.152:3000'
         }
         failure {
-            echo '❌ Pipeline failed — check logs above'
+            echo ' Pipeline failed — check logs above'
         }
     }
 }
